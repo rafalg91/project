@@ -7,7 +7,7 @@ class App extends Component {
   componentDidMount() {
     fetch("http://127.0.0.1:8000/workers")
       .then(res => res.json())
-      .then(json => this.props.workersFetched(json.results));
+      .then(json => this.props.workersFetched(json));
   }
 
   render() {
@@ -16,7 +16,7 @@ class App extends Component {
         Workers
         <ul>
           {this.props.workers.map(worker =>
-            <li key="{worker.name}">
+            <li key={worker.id}>
               {worker.name}
             </li>
           )}

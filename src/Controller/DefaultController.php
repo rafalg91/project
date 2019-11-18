@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -20,32 +20,28 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/workers", name="users")
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function workers()
     {
         $workers = [
             [
+                'id' => 1,
                 'name' => 'Rafał',
                 'surname' => 'Gleba'
             ],
             [
+                'id' => 2,
                 'name' => 'Adam',
                 'surname' => 'Małysz'
             ],
             [
+                'id' => 3,
                 'name' => 'Jan',
                 'surname' => 'Kowalski'
             ]
         ];
 
-        $response = new Response();
-
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        $response->setContent(json_encode($workers));
-        
-        return $response;
+        return new JsonResponse($workers);
     }
 }
