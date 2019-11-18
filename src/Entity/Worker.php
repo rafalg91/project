@@ -39,7 +39,7 @@ class Worker
     private $skills;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\access", inversedBy="workers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Access", inversedBy="workers")
      */
     private $accesses;
 
