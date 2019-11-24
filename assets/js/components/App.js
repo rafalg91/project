@@ -5,22 +5,35 @@ import { workersFetched } from "../actions";
 class App extends Component {
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/workers")
+    fetch("http://localhost:8000/workers")
       .then(res => res.json())
-      .then(json => this.props.workersFetched(json));
+      .then(json => this.props.workersFetched(json))
   }
 
   render() {
     return (
       <div>
-        Workers
-        <ul>
+        <article className="panel is-info panel--small">
+          <p class="panel-heading">
+            Workers
+          </p>  
+          <div className="panel-block">
+            <p className="control has-icons-left">
+              <input className="input is-info" type="text" placeholder="Search workers" />
+              <span className="icon is-left">
+                <i className="fas fa-search" aria-hidden="true" />
+              </span>
+            </p>
+          </div>
           {this.props.workers.map(worker =>
-            <li key={worker.id}>
-              {worker.name}
-            </li>
+          <a className="panel-block" key={worker.id}>
+            <span className="panel-icon">
+              <i className="fas fa-user" aria-hidden="true" />
+            </span>
+            {worker.name}
+          </a>   
           )}
-        </ul>
+        </article>
       </div>
     )
   }
