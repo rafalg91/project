@@ -17,4 +17,4 @@ const workers = (state = [], action) => {
   }
 }
 
-export default workers
+export default workers;
