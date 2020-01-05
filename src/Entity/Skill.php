@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use JsonSerializable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SkillRepository")
  */
-class Skill
+class Skill implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -31,6 +32,14 @@ class Skill
     public function __construct()
     {
         $this->workers = new ArrayCollection();
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'name' => $this->name
+        );
     }
 
     public function getId(): ?int

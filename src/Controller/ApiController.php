@@ -2,37 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\Skill;
+use App\Entity\Worker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends AbstractController
 {
+
     /**
      * @Route("/api/workers", name="workers")
      * @return JsonResponse
      */
     public function workers()
     {
-        $workers = [
-            [
-                'id' => 1,
-                'name' => 'Rafał',
-                'surname' => 'Gleba'
-            ],
-            [
-                'id' => 2,
-                'name' => 'Adam',
-                'surname' => 'Małysz'
-            ],
-            [
-                'id' => 3,
-                'name' => 'Jan',
-                'surname' => 'Kowalski'
-            ]
-        ];
+        $workers = $this->getDoctrine()->getRepository(Worker::class)->findAll();
 
-        return new JsonResponse($workers);
+        return new Response(json_encode($workers));
     }
 
     /**
@@ -41,21 +29,8 @@ class ApiController extends AbstractController
      */
     public function skills()
     {
-        $workers = [
-            [
-                'id' => 1,
-                'name' => 'PHP',
-            ],
-            [
-                'id' => 2,
-                'name' => 'JavaScript',
-            ],
-            [
-                'id' => 3,
-                'name' => 'MySQL',
-            ]
-        ];
+        $skills = $this->getDoctrine()->getRepository(Skill::class)->findAll();
 
-        return new JsonResponse($workers);
+        return new Response(json_encode($skills));
     }
 }
