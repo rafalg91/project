@@ -8,9 +8,14 @@ const skills = (state = [], action) => {
       return [
         ...state,
         {
-          name: action.skill.name,
+          id: new Date().getUTCMilliseconds(),
+          name: action.skill,
         }
       ]
+    case 'REMOVE_SKILL':
+      return state.filter(skill =>
+        skill.id !== action.id
+      )
     default:
       return state
   }

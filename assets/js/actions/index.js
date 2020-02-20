@@ -17,3 +17,13 @@ export const addSkill = skill => ({
   type: 'ADD_SKILL',
   skill
 });
+
+export const removeSkill = id => ({
+  type: 'REMOVE_SKILL',
+  id
+});
+
+export const searchSkill = text => ({
+  type: 'SEARCH_SKILLS',
+  text
+});

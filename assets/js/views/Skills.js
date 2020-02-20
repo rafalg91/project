@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { skillsFetched } from "../actions";
+import { skillsFetched, addSkill } from "../actions";
+import SkillsList from "../components/skills/SkillList";
+//import AddSkill from "../components/skills/AddSkill";
 
 class Skills extends Component {
 
@@ -11,30 +13,35 @@ class Skills extends Component {
   }
 
   render() {
+    const { skills, addSkill } = this.props;
+    
     return (
-      <div>
-        <article className="panel is-info panel--small">
-          <p class="panel-heading">
-            Skills
-          </p>  
-          <div className="panel-block">
-            <p className="control has-icons-left">
-              <input className="input is-info" type="text" placeholder="Search workers" />
-              <span className="icon is-left">
-                <i className="fas fa-search" aria-hidden="true" />
-              </span>
-            </p>
-          </div>
-          {this.props.skills.map(skill =>
-          <a className="panel-block" key={skill.id}>
-            <span className="panel-icon">
-              <i className="fas fa-user" aria-hidden="true" />
-            </span>
-            {skill.name}
-          </a>   
-          )}
-        </article>
-      </div>
+      <>
+        <p className="title is-3">
+          Skills
+        </p>
+        <table className="table is-striped">
+          <thead>
+            <tr>
+              <th>
+                ID
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <SkillsList skills={skills} />
+          </tbody>
+        </table>
+        <div className="buttons">
+          <button className="button is-primary" onClick={() => addSkill('test123')}>Add skill</button>
+        </div>
+      </>
     )
   }
 }
@@ -44,7 +51,7 @@ const mapStateToProps = (state) => {
     skills: state.skills
   }
 };
-const mapDispatchToProps = { skillsFetched };
+const mapDispatchToProps = { skillsFetched, addSkill };
 
 export default connect(
   mapStateToProps,
