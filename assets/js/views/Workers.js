@@ -1,52 +1,42 @@
-import React, { Component } from 'react'
-import { connect } from "react-redux";
-import { workersFetched } from "../actions";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { workersFetched } from '../actions';
 
-class Workers extends Component {
+const Workers = () => {
+  const dispatch = useDispatch();
+  const workers = useSelector(state => state.workers);
 
-  componentDidMount() {
+  useEffect(() =>  {
     fetch("http://localhost:8000/api/workers")
-      .then(res => res.json())
-      .then(json => this.props.workersFetched(json))
-  }
+    .then(res => res.json())
+    .then(json => dispatch(workersFetched(json)));
+  });
 
-  render() {
-    return (
-      <div>
-        <article className="panel is-info panel--small">
-          <p class="panel-heading">
-            Workers
-          </p>  
-          <div className="panel-block">
-            <p className="control has-icons-left">
-              <input className="input is-info" type="text" placeholder="Search workers" />
-              <span className="icon is-left">
-                <i className="fas fa-search" aria-hidden="true" />
-              </span>
-            </p>
-          </div>
-          {this.props.workers.map(worker =>
-          <a className="panel-block" key={worker.id}>
-            <span className="panel-icon">
-              <i className="fas fa-user" aria-hidden="true" />
+  return (
+    <div>
+      <article className="panel is-info panel--small">
+        <p class="panel-heading">
+          Workers
+        </p>  
+        <div className="panel-block">
+          <p className="control has-icons-left">
+            <input className="input is-info" type="text" placeholder="Search workers" />
+            <span className="icon is-left">
+              <i className="fas fa-search" aria-hidden="true" />
             </span>
-            {worker.name}
-          </a>   
-          )}
-        </article>
-      </div>
-    )
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    workers: state.workers
-  }
+          </p>
+        </div>
+        {workers.map(worker =>
+        <a className="panel-block" key={worker.id}>
+          <span className="panel-icon">
+            <i className="fas fa-user" aria-hidden="true" />
+          </span>
+          {worker.name}
+        </a>   
+        )}
+      </article>
+    </div>
+  )
 };
-const mapDispatchToProps = { workersFetched };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Workers);
+export default Workers;
